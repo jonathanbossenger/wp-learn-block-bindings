@@ -42,6 +42,18 @@ function wp_learn_register_book_post_type() {
 			'show_in_rest' => true,
 		)
 	);
+
+	register_post_meta(
+		'book',
+		'cover_image',
+        array(
+            'show_in_rest' => true,
+            'single'       => true,
+            'type'         => 'string',
+            'label'        => __( 'Cover Image', 'custom-bindings' ),
+        )
+    );
+
 }
 
 add_filter( 'postmeta_form_keys', 'bookstore_add_isbn_to_quick_edit', 10, 2 );
@@ -51,4 +63,21 @@ function bookstore_add_isbn_to_quick_edit( $keys, $post ) {
 		$keys[] = 'isbn';
 	}
 	return $keys;
+}
+
+add_action( 'init', 'wp_learn_register_book_image_source' );
+
+function wp_learn_register_book_image_source() {
+    register_block_bindings_source(
+        'wp-learn/book-cover-image',
+        array(
+            'label'              => __( 'Cover Image', 'wp-learn-block-bindings' ),
+            'get_value_callback' => 'wp_learn_get_cover_image',
+            'uses_context'       => array( 'postId' ),
+        )
+    );
+}
+
+function wp_learn_get_cover_image( $source_args, $block_instance ) {
+    return 'https://upload.wikimedia.org/wikipedia/commons/a/a4/MeditationsMarcusAurelius1811.jpg';
 }
