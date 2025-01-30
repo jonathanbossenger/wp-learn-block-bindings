@@ -38,8 +38,8 @@ function wp_learn_register_book_post_type() {
 		array(
 			'single'       => true,
 			'type'         => 'string',
-			'default'      => '',
 			'show_in_rest' => true,
+			'label'        => __( 'Book ISBN', 'wp-learn-block-bindings' ),
 		)
 	);
 
@@ -50,10 +50,9 @@ function wp_learn_register_book_post_type() {
             'show_in_rest' => true,
             'single'       => true,
             'type'         => 'string',
-            'label'        => __( 'Cover Image', 'custom-bindings' ),
+            'label'        => __( 'Cover Image', 'wp-learn-block-bindings' ),
         )
     );
-
 }
 
 add_filter( 'postmeta_form_keys', 'bookstore_add_isbn_to_quick_edit', 10, 2 );
@@ -69,11 +68,10 @@ add_action( 'init', 'wp_learn_register_book_image_source' );
 
 function wp_learn_register_book_image_source() {
     register_block_bindings_source(
-        'wp-learn/book-cover-image',
+        'wp-learn/cover-image',
         array(
             'label'              => __( 'Cover Image', 'wp-learn-block-bindings' ),
             'get_value_callback' => 'wp_learn_get_cover_image',
-            'uses_context'       => array( 'postId' ),
         )
     );
 }
