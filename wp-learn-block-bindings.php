@@ -49,17 +49,6 @@ function wp_learn_register_book_post_type() {
 
 	register_post_meta(
 		'book',
-		'book_image',
-		array(
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'label'        => __( 'Book Image', 'wp-learn-block-bindings' ),
-		)
-	);
-
-	register_post_meta(
-		'book',
 		'author',
 		array(
 			'single'       => true,
@@ -68,6 +57,18 @@ function wp_learn_register_book_post_type() {
 			'label'        => __( 'Book Author', 'wp-learn-block-bindings' ),
 		)
 	);
+
+	register_post_meta(
+		'book',
+		'book_image',
+		array(
+			'show_in_rest' => true,
+			'single'       => true,
+			'type'         => 'string',
+			'label'        => __( 'Book Image', 'wp-learn-block-bindings' ),
+		)
+	);
+	
 }
 
 add_filter( 'postmeta_form_keys', 'wp_learn_add_meta_to_quick_edit', 10, 2 );
